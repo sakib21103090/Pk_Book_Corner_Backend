@@ -12,6 +12,10 @@ const ordersRouter = require('./routes/Order');
 
 
 const cors =require('cors')
+server.use(cors({
+    origin: 'http://localhost:3000', // Allow only your frontend URL
+    credentials: true // Allow credentials
+  }));
 
 // middewares
 server.use(express.json());

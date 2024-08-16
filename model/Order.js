@@ -5,6 +5,9 @@ const { Schema } = mongoose;
 const orderSchema = new Schema(
   {
     items: { type: [Schema.Types.Mixed],  },
+    tranId:{
+      type:String
+  },
     TotalPrice: { type: Number },
     totalItems: { type: Number },
     Subtotal: { type: Number },
@@ -29,5 +32,7 @@ orderSchema.set('toJSON', {
     delete ret._id;
   },
 });
+
+
 
 exports.Order = mongoose.model('Order', orderSchema);

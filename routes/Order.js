@@ -3,8 +3,10 @@ const {
   createOrder,
   fetchAllOrders,
   fetchLoggedInUserOrders,
+  updateOrder,
+  paymentOnline,
+  paymentSuccess,
 } = require("../controller/Order");
-const { deleteProduct } = require("../controller/Product");
 
 const router = express.Router();
 //  /orders is already added in base path
@@ -12,6 +14,9 @@ router
   .post("/", createOrder)
   .get("/", fetchAllOrders)
   .get("/", fetchLoggedInUserOrders)
-  .patch("/:id", deleteProduct);
+  .post("/online-payment", paymentOnline)
+  .post("/payment-online/success/:tranId", paymentSuccess)
+  .patch('/:id', updateOrder)
+
 
 exports.router = router;
