@@ -101,6 +101,7 @@ const is_live = false;
       res.status(400).json(err);
     }
   };
+  
   exports.fetchLoggedInUserOrders = async (req, res) => {
     const { user } = req.query;
     try {
@@ -121,3 +122,20 @@ const is_live = false;
         res.status(400).json( err );
     }
 };
+
+
+exports.deleteOrder = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Ensure you are finding the correct document and deleting it
+    const doc = await Order.findByIdAndDelete(id);
+
+    if (!doc) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
+    res.status(200).json({ message: 'Item successfully removed', id });
+  } catch (err) {
+    res.status(400).json({ error: 'Failed to delete item' });
+  }
+}

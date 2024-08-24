@@ -6,6 +6,7 @@ const {
   updateOrder,
   paymentOnline,
   paymentSuccess,
+  deleteOrder,
 } = require("../controller/Order");
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router
   .post("/online-payment", paymentOnline)
   .post("/payment-online/success/:tranId", paymentSuccess)
   .patch('/:id', updateOrder)
+  .delete('/:id', deleteOrder)
 
 
 exports.router = router;

@@ -11,6 +11,8 @@ const productSchema = new Schema({
   authorName: {type: String,},
   category: { type: String,},
   images: {type: String,},
+  isbn: {type: Number,},
+  publication: {type: String,},
 });
 
 const virtualId  = productSchema.virtual('id');

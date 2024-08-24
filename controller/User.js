@@ -8,7 +8,7 @@ exports.fetchUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    res.status(200).json({id: user.id, addresses: user.addresses, email: user.email, role: user.role});
+    res.status(200).json({id: user.id, addresses: user.addresses, email: user.email, role: user.role,photo:user.photo,displayName:user.displayName});
   } catch (err) {
     res.status(400).json(err);
   }
