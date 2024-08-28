@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const AuthorSchema = new Schema({
   label: { type: String, required: true, unique: true },
   value: { type: String, required: true, unique: true },
+  authorImage: {type: String,},
 });
 
 const virtual = AuthorSchema.virtual('id');

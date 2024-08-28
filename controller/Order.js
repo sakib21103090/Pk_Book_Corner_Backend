@@ -1,7 +1,9 @@
 const { Order } = require("../model/Order");
 
+
 const SSLCommerzPayment = require("sslcommerz-lts");
 const { ObjectId } = require("mongodb");
+const { Product } = require("../model/Product");
 
 //SSLCommerz
 const store_id ="bytem6692cc19b7ca9";
@@ -9,16 +11,23 @@ const store_passwd = "bytem6692cc19b7ca9@ssl";
 const is_live = false;
 
 
-  exports.createOrder = async (req, res) => {
-    const order = new Order(req.body);
-    try {
+exports.createOrder = async (req, res) => {
+  try {
+      const order = new Order(req.body);
       const doc = await order.save();
-     
+      
+      order.items.map(async (item) => {
+          const product = await Product.findById(item.product.id);
+          product.stock = product.stock - item.quantity;
+          product.totalSell += 1; // Increment totalSell by 1
+          await product.save();
+      });
+
       res.status(201).json(doc);
-    } catch (err) {
+  } catch (err) {
       res.status(400).json(err);
-    }
-  };
+  }
+};
   
 
   exports.updateOrder = async (req, res) => {
@@ -103,9 +112,9 @@ const is_live = false;
   };
   
   exports.fetchLoggedInUserOrders = async (req, res) => {
-    const { user } = req.query;
+    const user = req.query.user;
     try {
-      const orders = await Order.find({ user: user });
+      const orders = await Order.find({ user: user.id });
   
       res.status(200).json(orders);
     } catch (err) {

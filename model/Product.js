@@ -13,7 +13,11 @@ const productSchema = new Schema({
   images: {type: String,},
   isbn: {type: Number,},
   publication: {type: String,},
-});
+  totalSell: { type: Number, default: 0 }, // Set default value to 0
+  
+},
+{ timestamps: true }
+);
 
 const virtualId  = productSchema.virtual('id');
 virtualId.get(function(){

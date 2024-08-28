@@ -9,6 +9,7 @@ const usersRouter = require('./routes/Users');
 const authRouter = require('./routes/Auth');
 const cartRouter = require('./routes/Carts');
 const ordersRouter = require('./routes/Order');
+const BannerRouter = require('./routes/Banners');
 
 
 const cors =require('cors')
@@ -27,6 +28,11 @@ server.use('/users', usersRouter.router);
 server.use('/auth', authRouter.router);
 server.use('/cart', cartRouter.router);
 server.use('/orders',  ordersRouter.router);
+server.use('/banner',  BannerRouter.router);
+
+
+// // Increase the max listeners limit globally
+// require('events').EventEmitter.defaultMaxListeners = 20;
 
 
 main().catch(err => console.log(err));
